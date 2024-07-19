@@ -1,4 +1,3 @@
-import { type } from "express/lib/response";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
@@ -16,7 +15,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    timestamp : true,
+    timestamp : {
+        type: Date,
+        default: Date.now,
+    }
 });
 
 const User = mongoose.model("User", userSchema);
