@@ -8,7 +8,7 @@ import res from "express/lib/response.js";
 dotenv.config();
 
 mongoose.connect(process.env.MONGO).then(() => {
-    console.log("Connected to MongoDB Successfully!");
+    console.log("Connected to MongoDB Successfully !");
 })
 .catch((err) => {
     console.log(err);
