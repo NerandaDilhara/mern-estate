@@ -1,9 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Signup() {
-
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -13,7 +12,7 @@ export default function Signup() {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value
-    })
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -30,14 +29,15 @@ export default function Signup() {
         body: JSON.stringify(formData)
       });
 
-      const data = await response.json();
+      const data = await res.json(); // Changed 'response' to 'res'
       console.log(data);
       
-      if(data.success === false) {
+      if (data.success === false) {
         setLoading(false);
         setError(data.message);
         return;
       }
+
       setLoading(false);
       setError(null);
       navigate('/sign-in');
@@ -53,20 +53,40 @@ export default function Signup() {
       <h1 className="text-3xl text-center font-semibold my-7">SignUp</h1>
       
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <input
+          type="text"
+          id="username"
+          placeholder="Username"
+          onChange={handleChange}
+          className="border rounded-lg p-3"
+        />
+        <input
+          type="text"
+          id="email"
+          placeholder="Email"
+          onChange={handleChange}
+          className="border rounded-lg p-3"
+        />
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          onChange={handleChange}
+          className="border rounded-lg p-3"
+        />
 
-        <input type="text" id="username" placeholder="username" onChange={handleChange} className="border rounded-lg p-3" />
-        <input type="text" id="email" placeholder="email" onChange={handleChange} className="border rounded-lg p-3" />
-        <input type="password" id="password" placeholder="password" onChange={handleChange} className="border rounded-lg p-3" />
-
-        <button disabled={loading} className="bg-slate-800 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">
+        <button
+          disabled={loading}
+          className="bg-slate-800 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
+        >
           {loading ? 'Loading...' : 'Sign Up'}
         </button>
       </form>
 
       <div className="flex gap-2 mt-5">
         <p>Have an account?</p>
-        <Link to="/sign-in">
-          <span className="text-blue-700">Sign in</span>
+        <Link to="/sign-in" className="text-blue-700">
+          Sign in
         </Link>
       </div>
 
